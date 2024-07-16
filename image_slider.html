@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image-Slider</title>
+    <style>
+        body{
+            background-image: linear-gradient(#14469f,#DA3068);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        h1{
+            margin-bottom: 10px;
+            text-align: center;
+            color:yellow;
+            font-weight: bold;
+            font-style: italic;
+            font-family: cursive;
+            }
+        .navigation{
+           text-align: center;
+           margin-top: 20px; 
+        }
+        button{
+                width:80px;
+                text-align: center;
+                font-size: 30px;
+                background-color:aqua;
+                border: 2px solid blue;
+                border-radius: 15px;
+            }   
+        .image-container{
+            width: 800px;
+            height: 600px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(skyblue,blue);
+            border-radius: 10px;
+            box-shadow:black 5px 5px 12px;
+        }
+        img{
+            width: 75%;
+            margin: auto;
+        }
+        .slid1{
+            animation: fade 2s;
+        }
+        @keyframes fade{
+            from{opacity: 0%;}to{opacity: 100%;}
+        }
+        @media only screen and (max-width:800px){
+            .image-container{
+                width: 700px;
+                height: 450px;
+            }
+        }
+        @media only screen and (max-width:500px){
+            .image-container{
+                padding-top: 1%;
+                padding-bottom:1%;
+                width: 100%;
+                height:fit-content;
+            }
+        }
+        @media only screen and (max-width:200px){
+            .image-container{
+                width: 100%;
+                height:fit-content;
+            }
+            img{
+                width: 90%;
+            }
+            .navigation{
+                margin-top: 5px;
+            }
+            button{
+                width: 25%;
+                font-size: small;
+            }
+            h1{
+                font-size: medium;
+            }
+        }
+    </style>
+</head>
+<body onload="bodyLoad()">
+        <h1>Image Slider</h1>
+            <div class="image-container">
+                    <img onmouseover="stop()" onmouseout="start()" id="img1" src="img-1.jpg" alt="image">
+            </div>
+            <div class="navigation">
+                <button onclick="left()">&#10094</button>
+                <button onclick="right()">&#10095</button>
+            </div>
+    <script>
+        var imgs=['img-1.jpg','img-2.jpg','img-3.jpg','img-4.jpg','img-5.jpg'];
+        var n=0;var a=1; var show;
+        var imgList=document.querySelector('.imageList');
+        var img1=document.getElementById('img1');
+        function bodyLoad(){
+            show=setInterval(right,3000);
+        }
+        function right(){
+            n++;if(n===imgs.length){n=0;}
+            slider();
+        }
+        function left(){
+            n--;if(n===-1){n=(imgs.length-1)}
+            slider();
+        }
+        function slider(){
+            img1.src=imgs[n];
+            img1.classList.add('slid1');
+            setTimeout(()=>{img1.classList.remove('slid1');},2000);
+        }
+        function stop(){
+            clearInterval(show);
+        }
+        function start(){
+            show=setInterval(right,3000);
+        }
+    </script>
+</body>
+</html>
